@@ -53,8 +53,14 @@ gulp.task('copy-views', function () {
     .pipe(gulp.dest('public/views'));
 });
 
+// Copy other assets
+gulp.task('copy-assets', function () {
+  return gulp.src(['src/**/*', '!src/assets/js/**/*', '!src/assets/css/**/*', '!src/assets/img/**/*', '!src/views/**/*'])
+    .pipe(gulp.dest('public'));
+});
+
 // Build task
-gulp.task('build', gulp.series('clean', 'sass', gulp.parallel('minify-js', 'minify-css', 'images', 'copy-views')));
+gulp.task('build', gulp.series('clean', 'sass', gulp.parallel('minify-js', 'minify-css', 'images', 'copy-views', 'copy-assets')));
 
 // Watch Sass files for changes
 gulp.task('sass:watch', function () {
