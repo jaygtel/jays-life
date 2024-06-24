@@ -1,0 +1,14 @@
+/* Responsive styles */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  .contact-info {
+    border-left: none;
+    border-top: 2px solid #ddd;
+    padding-left: 0;
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
+}
