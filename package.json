@@ -1,0 +1,44 @@
+{
+  "name": "jays-life",
+  "version": "1.0.0",
+  "description": "Jays Life - A personal web app built with Node.js and Express.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "gulp dev",
+    "sass": "gulp sass",
+    "build": "gulp build",
+    "serve": "gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/jays-life"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/jays-life/issues"
+  },
+  "keywords": [
+    "personal",
+    "website",
+    "express",
+    "node.js"
+  ],
+  "author": "Jay Telford",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.2",
+    "dotenv": "^10.0.0",
+    "body-parser": "^1.19.0",
+    "nodemailer": "^6.6.3",
+    "nodemailer-mailgun-transport": "^2.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.0.0",
+    "del": "^6.0.0",
+    "gulp-nodemon": "^2.5.0",
+    "sass": "^1.32.8"
+  }
+}

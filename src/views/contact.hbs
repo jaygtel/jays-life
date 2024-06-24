@@ -1,0 +1,34 @@
+<main class="container">
+  <div id="form-feedback" class="hidden"></div>
+  <div class="contact-wrapper">
+    <div class="contact-form">
+      <form id="contact-form" action="/contact" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+    <div class="contact-info">
+      <div class="map">
+        <!-- You can use an iframe to embed a map, e.g., Google Maps -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.8354345104787!2d144.9630579156784!3d-37.81361127975179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f1f6fdf7%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1615322435321!5m2!1sen!2sus"
+          width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <div class="address">
+        <h3>Our Address</h3>
+        <p>123 Main Street,<br>Melbourne, VIC 3000,<br>Australia</p>
+      </div>
+    </div>
+  </div>
+</main>
