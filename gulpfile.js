@@ -1,68 +1,84 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const del = require('del');
+const uglify = require('gulp-uglify');
+const cleanCSS = require('gulp-clean-css');
+const imagemin = require('gulp-imagemin');
+const sourcemaps = require('gulp-sourcemaps');
 const nodemon = require('gulp-nodemon');
 
-// Paths configuration
-const paths = {
-  styles: {
-    src: 'scss/styles.scss',
-    dest: 'src/assets/css',
-    finalDest: 'public/assets/css'
-  },
-  assets: {
-    src: 'src/**/*',
-    dest: 'public'
-  }
-};
+// Clean the public directory
+gulp.task('clean', function () {
+  return del(['public/**', '!public']);
+});
 
-// Clean assets
-function clean() {
-  return del(['public/**/*']);
-}
+// Compile Sass to CSS with sourcemaps
+gulp.task('sass', function () {
+  return gulp.src('scss/styles.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(cleanCSS())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('src/assets/css'));
+});
 
-// Compile SCSS into CSS
-function styles() {
-  return gulp.src(paths.styles.src)
-    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
-    .pipe(gulp.dest(paths.styles.dest))
-    .pipe(gulp.dest(paths.styles.finalDest));
-}
+// Minify JavaScript
+gulp.task('minify-js', function () {
+  return gulp.src('src/assets/js/**/*.js')
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('public/assets/js'));
+});
 
-// Copy assets to public
-function copyAssets() {
-  return gulp.src(paths.assets.src)
-    .pipe(gulp.dest(paths.assets.dest));
-}
+// Minify CSS (copied from src/assets/css to public/assets/css)
+gulp.task('minify-css', function () {
+  return gulp.src('src/assets/css/**/*.css')
+    .pipe(sourcemaps.init())
+    .pipe(cleanCSS())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('public/assets/css'));
+});
 
-// Watch files
-function watchFiles() {
-  gulp.watch('scss/**/*.scss', styles);
-  gulp.watch(paths.assets.src, copyAssets);
-}
+// Optimize images
+gulp.task('images', function () {
+  return gulp.src('src/assets/img/**/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('public/assets/img'));
+});
 
-// Nodemon task
-function startNodemon(done) {
+// Copy views
+gulp.task('copy-views', function () {
+  return gulp.src('src/views/**/*.hbs')
+    .pipe(gulp.dest('public/views'));
+});
+
+// Build task
+gulp.task('build', gulp.series('clean', 'sass', gulp.parallel('minify-js', 'minify-css', 'images', 'copy-views')));
+
+// Watch Sass files for changes
+gulp.task('sass:watch', function () {
+  gulp.watch('scss/**/*.scss', gulp.series('sass'));
+});
+
+// Dev task to run everything and start the server
+gulp.task('dev', gulp.series('build', 'sass:watch', function () {
   nodemon({
     script: 'app.js',
-    watch: ['src'],
-    tasks: ['build'],
+    ext: 'js hbs',
     env: { 'NODE_ENV': 'development' },
-    done: done
+    ignore: ['public/'],
+    tasks: ['build']
   });
-}
+}));
 
-// Gulp tasks
-const build = gulp.series(clean, styles, copyAssets);
-const serve = gulp.series(build, startNodemon);
-const dev = gulp.parallel(watchFiles, serve);
-
-// Export tasks
-exports.clean = clean;
-exports.styles = styles;
-exports.copyAssets = copyAssets;
-exports.build = build;
-exports.watch = watchFiles;
-exports.serve = serve;
-exports.dev = dev;
-exports.default = build;
+// Serve task to start the server
+gulp.task('serve', function () {
+  nodemon({
+    script: 'app.js',
+    ext: 'js hbs',
+    env: { 'NODE_ENV': 'development' },
+    ignore: ['public/'],
+    tasks: ['build']
+  });
+});

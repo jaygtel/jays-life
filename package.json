@@ -39,6 +39,10 @@
     "gulp-sass": "^5.0.0",
     "del": "^6.0.0",
     "gulp-nodemon": "^2.5.0",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "gulp-uglify": "^3.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-sourcemaps": "^3.0.0"
   }
 }

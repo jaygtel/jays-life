@@ -4,7 +4,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Production files -- always rebuilt from src
+# Build files -- always built from src never manually altered
 public/
 
 # Environment variables
@@ -37,3 +37,6 @@ Thumbs.db
 
 # Linux specific
 *~
+
+# Source maps
+*.map
