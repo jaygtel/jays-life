@@ -79,7 +79,7 @@ gulp.task('optimize-tmp-img', function () {
 
 // Create zip archive from dist/tmp directory
 gulp.task('create-zip', function () {
-  return gulp.src('dist/tmp/**', { base: 'dist/tmp' })
+  return gulp.src(['dist/tmp/**', 'dist/tmp/.*'], { base: 'dist/tmp', dot: true })
     .pipe(zip(`${pkg.name}-${pkg.version}.zip`))
     .pipe(gulp.dest('dist'));
 });
