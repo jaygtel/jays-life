@@ -1,0 +1,122 @@
+.navbar {
+  background-color: $header-footer-bg;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-brand {
+    font-size: 1.5rem;
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+
+    span {
+      height: 3px;
+      background-color: $text-color;
+      margin: 4px 0;
+      width: 25px;
+    }
+  }
+
+  .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+
+    li {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      display: none; // Hide by default
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: $header-footer-bg;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 0;
+      margin: 0;
+      z-index: 1000;
+      margin-top: 10px; // Add margin to create space below the "Games" placeholder
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown.active .dropdown-menu {
+      display: block; // Show when active
+    }
+
+    .dropdown-menu li {
+      margin: 0;
+    }
+
+    .dropdown-menu a {
+      padding: 0.5rem 1rem;
+      display: block;
+      white-space: nowrap;
+      text-decoration: none;
+      color: $text-color;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: $primary-color;
+      color: #fff;
+    }
+
+    .caret {
+      margin-left: 5px;
+      border-top: 5px solid #333; // Color of the caret
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
+
+      li {
+        width: 100%;
+      }
+
+      .dropdown-menu {
+        position: relative;
+      }
+
+      .dropdown.active .dropdown-menu {
+        display: none;
+      }
+
+      .dropdown.active .dropdown-menu.active {
+        display: block;
+      }
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+  }
+}
