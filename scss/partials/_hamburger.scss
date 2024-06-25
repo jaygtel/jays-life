@@ -53,7 +53,7 @@
     background-color: $header-footer-bg;
     z-index: 1000;
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem; // Add extra padding at the bottom
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Add a shadow for better separation
@@ -111,4 +111,10 @@
   .nav-links.active {
     display: flex;
   }
+}
+
+// Ensure the brand/logo is displayed over the hamburger menu
+.nav-brand {
+  z-index: 1300; // Higher than the hamburger menu
+  position: relative;
 }

@@ -1,59 +1,62 @@
-// Dropdown menu styles
 .nav-links {
-  list-style: none; // Remove bullets from nav-links
-  padding: 0;
+  list-style: none;
   margin: 0;
+  padding: 0;
   display: flex;
   gap: 1rem;
 
   li {
     position: relative;
-    list-style: none; // Remove bullets from dropdown items
+    list-style: none; // Ensure no bullets are displayed
+  }
+
+  .dropdown-menu {
+    display: none; // Hide by default
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: $header-footer-bg;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    margin-top: 10px; // Add margin to create space below the "Games" placeholder
+    border: none; // Ensure no borders are displayed
+    min-width: 200px; // Set a minimum width to ensure text does not overflow
+  }
+
+  .dropdown.active .dropdown-menu {
+    display: block; // Show when active
+  }
+
+  .dropdown-menu li {
+    margin: 0;
+    list-style: none; // Ensure no bullets are displayed
+  }
+
+  .dropdown-menu a {
+    padding: 0.5rem 1rem;
+    display: block;
+    white-space: nowrap;
+    text-decoration: none;
+    color: $text-color;
+    transition: background-color 0.3s ease;
+  }
+
+  .dropdown-menu a:hover {
+    background-color: $primary-color;
+    color: #fff;
   }
 
   .caret {
     margin-left: 5px;
-    border-top: 5px solid #333; // Color of the caret
+    border-top: 5px solid $text-color; // Color of the caret
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
     display: inline-block;
     vertical-align: middle;
+
+    @media (max-width: 768px) {
+      display: none; // Hide the caret on small screens
+    }
   }
-}
-
-.dropdown-menu {
-  display: none; // Hide by default
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: $header-footer-bg;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 0;
-  margin: 0;
-  z-index: 1000;
-  margin-top: 10px; // Add margin to create space below the "Games" placeholder
-}
-
-.dropdown:hover .dropdown-menu,
-.dropdown.active .dropdown-menu {
-  display: block; // Show when active
-}
-
-.dropdown-menu li {
-  margin: 0;
-}
-
-.dropdown-menu a {
-  padding: 0.5rem 1rem;
-  display: block;
-  white-space: nowrap;
-  text-decoration: none;
-  color: $text-color;
-  transition: background-color 0.3s ease;
-}
-
-.dropdown-menu a:hover {
-  background-color: $primary-color;
-  color: #fff;
 }

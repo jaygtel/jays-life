@@ -36,10 +36,10 @@ app.use('/', indexRouter);
 app.use('/contact', contactRouter);
 app.use('/about', aboutRouter);
 app.use('/blog', blogRouter);
-app.use('/games/pf2e', pf2eRouter);
-app.use('/games/dnd5e', dnd5eRouter);
-app.use('/games/sr5', sr5Router);
-app.use('/games/apply', applyRouter);
+app.use('/pf2e', pf2eRouter);
+app.use('/dnd5e', dnd5eRouter);
+app.use('/sr5', sr5Router);
+app.use('/apply', applyRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
