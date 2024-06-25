@@ -1,3 +1,4 @@
+// Import scss partials
 @import 'partials/variables';
 @import 'partials/global';
 @import 'partials/header-footer';
@@ -10,4 +11,5 @@
 @import 'partials/sr5';
 @import 'partials/apply';
 @import 'partials/dropdown';
-@import 'partials/navbar';
+@import 'partials/hamburger'; // Add this line
+@import 'partials/dropdown-large'; // Add this line

@@ -19,39 +19,6 @@
     position: relative;
   }
 
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    z-index: 1200;
-
-    span {
-      height: 3px;
-      background-color: $text-color;
-      margin: 4px 0;
-      width: 25px;
-      transition: all 0.3s ease;
-    }
-
-    &.active span:nth-child(1) {
-      transform: rotate(45deg);
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    &.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    &.active span:nth-child(3) {
-      transform: rotate(-45deg);
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-
   .nav-links {
     list-style: none;
     margin: 0;
@@ -61,42 +28,6 @@
 
     li {
       position: relative;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: $header-footer-bg;
-      padding: 0;
-      margin: 0;
-      z-index: 1000;
-      margin-top: 10px;
-      border: none;
-      width: 100%;
-    }
-
-    .dropdown.active .dropdown-menu {
-      display: block;
-    }
-
-    .dropdown-menu li {
-      margin: 0;
-    }
-
-    .dropdown-menu a {
-      padding: 0.5rem 1rem;
-      display: block;
-      white-space: nowrap;
-      text-decoration: none;
-      color: $text-color;
-      transition: background-color 0.3s ease;
-    }
-
-    .dropdown-menu a:hover {
-      background-color: $primary-color;
-      color: #fff;
     }
 
     .caret {
@@ -114,16 +45,6 @@
   }
 
   @media (max-width: 768px) {
-    .hamburger {
-      display: flex;
-      position: relative;
-      z-index: 1200;
-
-      &.active span {
-        background-color: $primary-color;
-      }
-    }
-
     .nav-links {
       display: none;
       flex-direction: column;
