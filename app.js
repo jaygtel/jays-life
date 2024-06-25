@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { create } = require('express-handlebars');
+const helpers = require('./public/helpers/handlebars'); // Update this path
 
 // Load environment variables
 dotenv.config();
@@ -16,7 +17,12 @@ const indexRouter = require('./public/routes/index');
 const blogRouter = require('./public/routes/blog'); // Import blog router
 
 // Set up view engine
-const hbs = create({ extname: '.hbs', layoutsDir: path.join(__dirname, 'public/views/layouts'), defaultLayout: 'main' });
+const hbs = create({
+  extname: '.hbs',
+  layoutsDir: path.join(__dirname, 'public/views/layouts'),
+  defaultLayout: 'main',
+  helpers: helpers // Register the helpers
+});
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'public/views'));
