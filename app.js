@@ -1,40 +1,35 @@
 const express = require('express');
-const { engine } = require('express-handlebars');
-const bodyParser = require('body-parser');
 const path = require('path');
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-const hbsHelpers = require('./src/helpers/handlebars');
+const { create } = require('express-handlebars');
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 4080;
 
-// Set up Handlebars with helpers
-app.engine('hbs', engine({
-  extname: '.hbs',
-  helpers: hbsHelpers,
-  defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, 'src', 'views', 'layouts'),
-  partialsDir: path.join(__dirname, 'src', 'views', 'partials')
-}));
+const contactRouter = require('./public/routes/contact');
+const aboutRouter = require('./public/routes/about');
+const indexRouter = require('./public/routes/index');
+
+// Set up view engine
+const hbs = create({ extname: '.hbs', layoutsDir: path.join(__dirname, 'public/views/layouts'), defaultLayout: 'main' });
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'src', 'views')); // Set the views directory
+app.set('views', path.join(__dirname, 'public/views'));
 
-// Body Parser Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.use('/', require('./src/routes/index'));
-app.use('/contact', require('./src/routes/contact'));
-app.use('/about', require('./src/routes/about')); // Add about route
+app.use('/', indexRouter);
+app.use('/contact', contactRouter);
+app.use('/about', aboutRouter);
 
-// Start the server
-const PORT = process.env.PORT || 4080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

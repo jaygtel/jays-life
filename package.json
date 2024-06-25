@@ -7,8 +7,10 @@
     "start": "node app.js",
     "dev": "gulp dev",
     "sass": "gulp sass",
+    "serve": "gulp serve",
     "build": "gulp build",
-    "serve": "gulp serve"
+    "zip": "gulp zip",
+    "prod": "pm2 start ecosystem.config.js --env production"
   },
   "repository": {
     "type": "git",
@@ -43,6 +45,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-imagemin": "^7.1.0",
-    "gulp-sourcemaps": "^3.0.0"
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-zip": "^5.0.2"
   }
 }

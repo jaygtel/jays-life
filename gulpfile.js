@@ -6,101 +6,68 @@ const cleanCSS = require('gulp-clean-css');
 const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
 const nodemon = require('gulp-nodemon');
+const zip = require('gulp-zip');
+const pkg = require('./package.json');
+const dotenv = require('dotenv');
 
-// Clean the public directory
-gulp.task('clean', function () {
-  console.log('Cleaning public directory...');
-  return del(['public/**', '!public']);
-});
+// Load environment variables
+dotenv.config();
 
 // Compile Sass to CSS with sourcemaps
 gulp.task('sass', function () {
-  console.log('Compiling Sass...');
   return gulp.src('scss/styles.scss')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    .pipe(cleanCSS())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('src/assets/css'))
-    .on('end', () => console.log('Sass compiled successfully.'));
+    .pipe(gulp.dest('public/assets/css'));
 });
-
-// Minify JavaScript
-gulp.task('minify-js', function () {
-  console.log('Minifying JavaScript...');
-  return gulp.src('src/assets/js/**/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(uglify())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('public/assets/js'))
-    .on('end', () => console.log('JavaScript minified successfully.'));
-});
-
-// Minify CSS (copied from src/assets/css to public/assets/css)
-gulp.task('minify-css', function () {
-  console.log('Minifying CSS...');
-  return gulp.src('src/assets/css/**/*.css')
-    .pipe(sourcemaps.init())
-    .pipe(cleanCSS())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('public/assets/css'))
-    .on('end', () => console.log('CSS minified successfully.'));
-});
-
-// Optimize images
-gulp.task('images', function () {
-  console.log('Optimizing images...');
-  return gulp.src('src/assets/img/**/*')
-    .pipe(imagemin())
-    .pipe(gulp.dest('public/assets/img'))
-    .on('end', () => console.log('Images optimized successfully.'));
-});
-
-// Copy views
-gulp.task('copy-views', function () {
-  console.log('Copying views...');
-  return gulp.src('src/views/**/*.hbs')
-    .pipe(gulp.dest('public/views'))
-    .on('end', () => console.log('Views copied successfully.'));
-});
-
-// Copy other assets
-gulp.task('copy-assets', function () {
-  console.log('Copying assets...');
-  return gulp.src(['src/**/*', '!src/assets/js/**/*', '!src/assets/css/**/*', '!src/assets/img/**/*', '!src/views/**/*'])
-    .pipe(gulp.dest('public'))
-    .on('end', () => console.log('Assets copied successfully.'));
-});
-
-// Build task
-gulp.task('build', gulp.series('clean', 'sass', gulp.parallel('minify-js', 'minify-css', 'images', 'copy-views', 'copy-assets')));
-
-// Watch Sass files for changes
-gulp.task('sass:watch', function () {
-  console.log('Watching Sass files...');
-  gulp.watch('scss/**/*.scss', gulp.series('sass'));
-});
-
-// Dev task to run everything and start the server
-gulp.task('dev', gulp.series('build', gulp.parallel('sass:watch', function () {
-  nodemon({
-    script: 'app.js',
-    ext: 'js hbs',
-    env: { 'NODE_ENV': 'development' },
-    ignore: ['public/']
-  }).on('restart', function () {
-    console.log('Server restarted!');
-  });
-})));
 
 // Serve task to start the server
 gulp.task('serve', function () {
   nodemon({
     script: 'app.js',
     ext: 'js hbs',
-    env: { 'NODE_ENV': 'development' },
-    ignore: ['public/']
+    env: { 'NODE_ENV': 'development', 'PORT': process.env.PORT || 4080 },
+    ignore: ['public/assets/']
   }).on('restart', function () {
     console.log('Server restarted!');
+  });
+});
+
+// Dev task to run everything and start the server
+gulp.task('dev', gulp.series('sass', gulp.parallel('serve', function () {
+  gulp.watch('scss/**/*.scss', gulp.series('sass'));
+})));
+
+// Zip task to create a distribution package with minification and optimization
+gulp.task('zip', function () {
+  return gulp.src([
+    'public/**',
+    '.env',
+    'app.js',
+    'gulpfile.js',
+    'package.json',
+    'ecosystem.config.js',
+    'LICENSE.md'
+  ], { base: '.' })
+    .pipe(gulp.src('public/assets/js/**/*.js')
+      .pipe(uglify()))
+    .pipe(gulp.src('public/assets/css/**/*.css')
+      .pipe(cleanCSS()))
+    .pipe(gulp.src('public/assets/img/**/*')
+      .pipe(imagemin()))
+    .pipe(zip(`${pkg.name}-${pkg.version}.zip`))
+    .pipe(gulp.dest('dist'));
+});
+
+// Start task for production
+gulp.task('start', function () {
+  const exec = require('child_process').exec;
+  exec('pm2 start ecosystem.config.js --env production', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    if (err) {
+      console.error(`exec error: ${err}`);
+    }
   });
 });
