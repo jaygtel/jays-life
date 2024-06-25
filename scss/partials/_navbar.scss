@@ -15,12 +15,15 @@
     color: $primary-color;
     text-decoration: none;
     font-weight: bold;
+    z-index: 1100; // Ensure the brand/logo stays on top
+    position: relative; // Maintain the position
   }
 
   .hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    z-index: 1200; // Ensure the hamburger button stays on top
 
     span {
       height: 3px;
@@ -47,12 +50,12 @@
       top: 100%;
       left: 0;
       background-color: $header-footer-bg;
-      border: 1px solid #ddd;
-      border-radius: 5px;
       padding: 0;
       margin: 0;
       z-index: 1000;
       margin-top: 10px; // Add margin to create space below the "Games" placeholder
+      border: none; // Ensure no borders are displayed
+      width: 100%; // Ensure it spans the full width
     }
 
     .dropdown.active .dropdown-menu {
@@ -79,7 +82,7 @@
 
     .caret {
       margin-left: 5px;
-      border-top: 5px solid #333; // Color of the caret
+      border-top: 5px solid $text-color; // Color of the caret
       border-right: 5px solid transparent;
       border-left: 5px solid transparent;
       display: inline-block;
@@ -94,6 +97,8 @@
   @media (max-width: 768px) {
     .hamburger {
       display: flex;
+      position: relative; // Ensure it's in its original place
+      z-index: 1200; // Ensure the hamburger button stays on top
     }
 
     .nav-links {
@@ -101,25 +106,59 @@
       flex-direction: column;
       width: 100%;
       text-align: center;
-      position: absolute; // Ensure it opens under the navbar
-      top: 100%; // Position it directly under the navbar
+      position: fixed; // Make the nav-links take up the entire screen
+      top: 0;
       left: 0;
+      height: 100%; // Ensure it takes up the full height of the screen
       background-color: $header-footer-bg; // Match the background color
-      border-top: 1px solid #ddd; // Add a border to separate it from the navbar
       z-index: 1000;
-      padding: 1rem 0; // Add padding to create space at the top and bottom
+      padding-top: 60px; // Add padding to account for the navbar height
+      justify-content: center; // Center the nav-links vertically
+      align-items: center; // Center the nav-links vertically
+
+      .dropdown-menu {
+        display: block; // Show the dropdown menu in mobile view
+        position: static; // Remove absolute positioning
+        border: none; // Ensure no borders are displayed in mobile view
+      }
 
       li {
-        width: 100%;
+        width: 200px; // Set a specific width for each menu item
+        margin: 0 auto; // Center the list items
         padding: 0.5rem 0; // Add padding to each menu item for spacing
       }
 
-      .dropdown-menu {
-        position: relative;
+      a {
+        display: block;
+        padding: 0.5rem 1rem;
+        width: 100%; // Ensure the link takes up the full width of the list item
+        text-align: center; // Center the text
+        background-color: transparent; // Remove background color on hover
+        color: inherit; // Keep text color unchanged
+        transition: none; // Remove transition effect
       }
 
-      .dropdown.active .dropdown-menu {
-        display: block;
+      a:hover {
+        background-color: transparent; // Remove background color on hover
+        color: inherit; // Keep text color unchanged
+      }
+
+      .dropdown-menu a:hover {
+        background-color: transparent; // Remove background color on hover for dropdown items
+        color: inherit; // Keep text color unchanged for dropdown items
+      }
+
+      .dropdown>a {
+        font-weight: bold; // Make "Games" bold
+        color: $primary-color; // Change "Games" color to match the theme
+        cursor: default; // Ensure cursor remains default
+      }
+
+      .separator {
+        width: 70%;
+        height: 1px;
+        background-color: $primary-color;
+        margin: 10px auto; // Center the separator and add margin
       }
     }
 
