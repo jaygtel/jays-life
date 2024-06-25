@@ -106,6 +106,14 @@ gulp.task('start', function () {
     console.log(stderr);
     if (err) {
       console.error(`exec error: ${err}`);
+    } else {
+      exec('pm2 save', function (saveErr, saveStdout, saveStderr) {
+        console.log(saveStdout);
+        console.log(saveStderr);
+        if (saveErr) {
+          console.error(`exec error: ${saveErr}`);
+        }
+      });
     }
   });
 });
