@@ -130,9 +130,9 @@
       width: 100%;
       text-align: center;
       position: fixed;
-      top: 60px; // Adjusted to start below the navbar
+      top: 60px;
       left: 0;
-      height: calc(100vh - 60px); // Adjusted to extend to the top of the footer
+      height: calc(100vh - 60px);
       background-color: $header-footer-bg;
       z-index: 1000;
       padding-top: 1rem;
