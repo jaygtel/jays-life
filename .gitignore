@@ -6,6 +6,7 @@ yarn-error.log*
 
 # Build files -- always built from src never manually altered
 public/
+dist/
 
 # Environment variables
 .env
