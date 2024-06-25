@@ -27,9 +27,24 @@
   text-decoration: none;
   color: $text-color;
 
-  // Remove hover effect
+  // Change text colour on hover without background highlighting
   &:hover {
+    color: $primary-color !important;
     background-color: transparent !important;
-    color: $text-color !important;
+  }
+}
+
+// Style the dropdown separators
+.dropdown-separator {
+  width: 70%;
+  height: 1px;
+  background-color: $primary-color;
+  margin: 5px auto; // Center the separator and add vertical spacing
+}
+
+// Hide separators in mobile view
+@media (max-width: 768px) {
+  .dropdown-separator {
+    display: none;
   }
 }
