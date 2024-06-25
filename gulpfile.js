@@ -41,10 +41,10 @@ gulp.task('dev', gulp.series('sass', gulp.parallel('serve', function () {
 
 // Clean the dist and tmp directories
 gulp.task('clean-dist', function () {
-  return del(['dist/**', 'tmp/**', '!dist', '!tmp']);
+  return del(['dist/**', '!dist']);
 });
 
-// Copy files to tmp directory
+// Copy files to dist/tmp directory
 gulp.task('copy-to-tmp', function () {
   return gulp.src([
     'public/**',
@@ -55,38 +55,48 @@ gulp.task('copy-to-tmp', function () {
     'ecosystem.config.js',
     'LICENSE.md'
   ], { base: '.' })
-    .pipe(gulp.dest('tmp'));
+    .pipe(gulp.dest('dist/tmp'));
 });
 
-// Minify JavaScript, CSS, and optimize images in tmp directory
-gulp.task('minify-tmp', function () {
-  return gulp.src('tmp/public/assets/js/**/*.js')
+// Minify JavaScript, CSS, and optimize images in dist/tmp directory
+gulp.task('minify-tmp-js', function () {
+  return gulp.src('dist/tmp/public/assets/js/**/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest('tmp/public/assets/js'))
-    .pipe(gulp.src('tmp/public/assets/css/**/*.css')
-      .pipe(cleanCSS())
-      .pipe(gulp.dest('tmp/public/assets/css'))
-    )
-    .pipe(gulp.src('tmp/public/assets/img/**/*')
-      .pipe(imagemin())
-      .pipe(gulp.dest('tmp/public/assets/img'))
-    );
+    .pipe(gulp.dest('dist/tmp/public/assets/js'));
 });
 
-// Create zip archive from tmp directory
+gulp.task('minify-tmp-css', function () {
+  return gulp.src('dist/tmp/public/assets/css/**/*.css')
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('dist/tmp/public/assets/css'));
+});
+
+gulp.task('optimize-tmp-img', function () {
+  return gulp.src('dist/tmp/public/assets/img/**/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/tmp/public/assets/img'));
+});
+
+// Create zip archive from dist/tmp directory
 gulp.task('create-zip', function () {
-  return gulp.src('tmp/**', { base: 'tmp' })
+  return gulp.src('dist/tmp/**', { base: 'dist/tmp' })
     .pipe(zip(`${pkg.name}-${pkg.version}.zip`))
     .pipe(gulp.dest('dist'));
 });
 
-// Clean tmp directory
+// Clean dist/tmp directory
 gulp.task('clean-tmp', function () {
-  return del(['tmp/**', '!tmp']);
+  return del(['dist/tmp/**', 'dist/tmp/.*', '!dist/tmp']);
 });
 
 // Zip task to create a distribution package with minification and optimization
-gulp.task('zip', gulp.series('clean-dist', 'copy-to-tmp', 'minify-tmp', 'create-zip', 'clean-tmp'));
+gulp.task('zip', gulp.series(
+  'clean-dist',
+  'copy-to-tmp',
+  gulp.parallel('minify-tmp-js', 'minify-tmp-css', 'optimize-tmp-img'),
+  'create-zip',
+  'clean-tmp'
+));
 
 // Start task for production
 gulp.task('start', function () {
