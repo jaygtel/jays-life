@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { create } = require('express-handlebars');
-const helpers = require('./public/helpers/handlebars'); // Update this path
+const helpers = require('./public/helpers/handlebars');
 
 // Load environment variables
 dotenv.config();
@@ -14,14 +14,19 @@ const PORT = process.env.PORT || 4080;
 const contactRouter = require('./public/routes/contact');
 const aboutRouter = require('./public/routes/about');
 const indexRouter = require('./public/routes/index');
-const blogRouter = require('./public/routes/blog'); // Import blog router
+const blogRouter = require('./public/routes/blog');
+const gamesRouter = require('./public/routes/games');
+const pf2eRouter = require('./public/routes/pf2e');
+const dnd5eRouter = require('./public/routes/dnd5e');
+const sr5Router = require('./public/routes/sr5');
+const applyRouter = require('./public/routes/apply');
 
 // Set up view engine
 const hbs = create({
   extname: '.hbs',
   layoutsDir: path.join(__dirname, 'public/views/layouts'),
   defaultLayout: 'main',
-  helpers: helpers // Register the helpers
+  helpers: helpers
 });
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
@@ -36,7 +41,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/contact', contactRouter);
 app.use('/about', aboutRouter);
-app.use('/blog', blogRouter); // Add blog route
+app.use('/blog', blogRouter);
+app.use('/games', gamesRouter);
+app.use('/games/pf2e', pf2eRouter);
+app.use('/games/dnd5e', dnd5eRouter);
+app.use('/games/sr5', sr5Router);
+app.use('/games/apply', applyRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -1,6 +1,13 @@
-@import 'partials/variables';
-@import 'partials/global';
-@import 'partials/header-footer';
-@import 'partials/form';
-@import 'partials/layout';
-@import 'partials/responsive';
+  // Import scss partials
+  @import 'partials/variables';
+  @import 'partials/global';
+  @import 'partials/header-footer';
+  @import 'partials/form';
+  @import 'partials/layout';
+  @import 'partials/responsive';
+  @import 'partials/games';
+  @import 'partials/pf2e';
+  @import 'partials/dnd5e';
+  @import 'partials/sr5';
+  @import 'partials/apply';
+  @import 'partials/dropdown';
