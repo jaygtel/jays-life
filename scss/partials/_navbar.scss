@@ -30,6 +30,25 @@
       background-color: $text-color;
       margin: 4px 0;
       width: 25px;
+      transition: all 0.3s ease; // Add transition for smooth transformation
+    }
+
+    &.active span:nth-child(1) {
+      transform: rotate(45deg);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    &.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    &.active span:nth-child(3) {
+      transform: rotate(-45deg);
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
@@ -99,6 +118,10 @@
       display: flex;
       position: relative; // Ensure it's in its original place
       z-index: 1200; // Ensure the hamburger button stays on top
+
+      &.active span {
+        background-color: $primary-color; // Change color when active
+      }
     }
 
     .nav-links {
