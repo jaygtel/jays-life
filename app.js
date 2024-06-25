@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 4080;
 const contactRouter = require('./public/routes/contact');
 const aboutRouter = require('./public/routes/about');
 const indexRouter = require('./public/routes/index');
+const blogRouter = require('./public/routes/blog'); // Import blog router
 
 // Set up view engine
 const hbs = create({ extname: '.hbs', layoutsDir: path.join(__dirname, 'public/views/layouts'), defaultLayout: 'main' });
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/contact', contactRouter);
 app.use('/about', aboutRouter);
+app.use('/blog', blogRouter); // Add blog route
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
