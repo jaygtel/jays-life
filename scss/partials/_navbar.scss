@@ -2,7 +2,7 @@
   background-color: $header-footer-bg;
   border-bottom: 1px solid #ddd;
   padding: 1rem 2rem;
-  position: relative; // Ensure the navbar is correctly positioned
+  position: relative;
 
   .container {
     display: flex;
@@ -15,22 +15,22 @@
     color: $primary-color;
     text-decoration: none;
     font-weight: bold;
-    z-index: 1100; // Ensure the brand/logo stays on top
-    position: relative; // Maintain the position
+    z-index: 1100;
+    position: relative;
   }
 
   .hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    z-index: 1200; // Ensure the hamburger button stays on top
+    z-index: 1200;
 
     span {
       height: 3px;
       background-color: $text-color;
       margin: 4px 0;
       width: 25px;
-      transition: all 0.3s ease; // Add transition for smooth transformation
+      transition: all 0.3s ease;
     }
 
     &.active span:nth-child(1) {
@@ -64,7 +64,7 @@
     }
 
     .dropdown-menu {
-      display: none; // Hide by default
+      display: none;
       position: absolute;
       top: 100%;
       left: 0;
@@ -72,13 +72,13 @@
       padding: 0;
       margin: 0;
       z-index: 1000;
-      margin-top: 10px; // Add margin to create space below the "Games" placeholder
-      border: none; // Ensure no borders are displayed
-      width: 100%; // Ensure it spans the full width
+      margin-top: 10px;
+      border: none;
+      width: 100%;
     }
 
     .dropdown.active .dropdown-menu {
-      display: block; // Show when active
+      display: block;
     }
 
     .dropdown-menu li {
@@ -101,14 +101,14 @@
 
     .caret {
       margin-left: 5px;
-      border-top: 5px solid $text-color; // Color of the caret
+      border-top: 5px solid $text-color;
       border-right: 5px solid transparent;
       border-left: 5px solid transparent;
       display: inline-block;
       vertical-align: middle;
 
       @media (max-width: 768px) {
-        display: none; // Hide the caret on small screens
+        display: none;
       }
     }
   }
@@ -116,11 +116,11 @@
   @media (max-width: 768px) {
     .hamburger {
       display: flex;
-      position: relative; // Ensure it's in its original place
-      z-index: 1200; // Ensure the hamburger button stays on top
+      position: relative;
+      z-index: 1200;
 
       &.active span {
-        background-color: $primary-color; // Change color when active
+        background-color: $primary-color;
       }
     }
 
@@ -129,59 +129,60 @@
       flex-direction: column;
       width: 100%;
       text-align: center;
-      position: fixed; // Make the nav-links take up the entire screen
-      top: 0;
+      position: fixed;
+      top: 60px; // Adjusted to start below the navbar
       left: 0;
-      height: 100%; // Ensure it takes up the full height of the screen
-      background-color: $header-footer-bg; // Match the background color
+      height: calc(100vh - 60px); // Adjusted to extend to the top of the footer
+      background-color: $header-footer-bg;
       z-index: 1000;
-      padding-top: 60px; // Add padding to account for the navbar height
-      justify-content: center; // Center the nav-links vertically
-      align-items: center; // Center the nav-links vertically
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      justify-content: center;
+      align-items: center;
 
       .dropdown-menu {
-        display: block; // Show the dropdown menu in mobile view
-        position: static; // Remove absolute positioning
-        border: none; // Ensure no borders are displayed in mobile view
+        display: block;
+        position: static;
+        border: none;
       }
 
       li {
-        width: 200px; // Set a specific width for each menu item
-        margin: 0 auto; // Center the list items
-        padding: 0.5rem 0; // Add padding to each menu item for spacing
+        width: 200px;
+        margin: 0 auto;
+        padding: 0.5rem 0;
       }
 
       a {
         display: block;
         padding: 0.5rem 1rem;
-        width: 100%; // Ensure the link takes up the full width of the list item
-        text-align: center; // Center the text
-        background-color: transparent; // Remove background color on hover
-        color: inherit; // Keep text color unchanged
-        transition: none; // Remove transition effect
+        width: 100%;
+        text-align: center;
+        background-color: transparent;
+        color: inherit;
+        transition: none;
       }
 
       a:hover {
-        background-color: transparent; // Remove background color on hover
-        color: inherit; // Keep text color unchanged
+        background-color: transparent;
+        color: inherit;
       }
 
       .dropdown-menu a:hover {
-        background-color: transparent; // Remove background color on hover for dropdown items
-        color: inherit; // Keep text color unchanged for dropdown items
+        background-color: transparent;
+        color: inherit;
       }
 
       .dropdown>a {
-        font-weight: bold; // Make "Games" bold
-        color: $primary-color; // Change "Games" color to match the theme
-        cursor: default; // Ensure cursor remains default
+        font-weight: bold;
+        color: $primary-color;
+        cursor: default;
       }
 
       .separator {
         width: 70%;
         height: 1px;
         background-color: $primary-color;
-        margin: 10px auto; // Center the separator and add margin
+        margin: 10px auto;
       }
     }
 
