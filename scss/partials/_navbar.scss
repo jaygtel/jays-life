@@ -41,10 +41,10 @@
       padding: 0.5rem 1rem;
       border-radius: 5px;
 
-      // Remove hover effect
+      // Remove background highlight and keep text colour on hover
       &:hover {
         background-color: transparent !important;
-        color: $text-color !important;
+        color: $text-color !important; // Ensure the text colour stays the same
       }
     }
   }

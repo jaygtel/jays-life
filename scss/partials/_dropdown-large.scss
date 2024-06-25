@@ -1,4 +1,5 @@
-.nav-links .dropdown:hover .dropdown-menu {
+.nav-links .dropdown:hover .dropdown-menu,
+.nav-links .dropdown.active .dropdown-menu {
   display: block;
 }
 
@@ -47,4 +48,11 @@
   .dropdown-separator {
     display: none;
   }
+}
+
+// Games item hover effect
+.nav-links .dropdown:hover>a,
+.nav-links .dropdown.active>a {
+  background-color: $primary-color;
+  color: #fff;
 }
