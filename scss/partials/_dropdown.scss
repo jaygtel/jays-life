@@ -10,6 +10,15 @@
     position: relative;
     list-style: none; // Remove bullets from dropdown items
   }
+
+  .caret {
+    margin-left: 5px;
+    border-top: 5px solid #333; // Color of the caret
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .dropdown-menu {
@@ -23,6 +32,7 @@
   padding: 0;
   margin: 0;
   z-index: 1000;
+  margin-top: 10px; // Add margin to create space below the "Games" placeholder
 }
 
 .dropdown:hover .dropdown-menu,
