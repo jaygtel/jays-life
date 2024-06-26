@@ -46,17 +46,4 @@
     background-color: $primary-color;
     color: #fff;
   }
-
-  .caret {
-    margin-left: 5px;
-    border-top: 5px solid $text-color; // Color of the caret
-    border-right: 5px solid transparent;
-    border-left: 5px solid transparent;
-    display: inline-block;
-    vertical-align: middle;
-
-    @media (max-width: 768px) {
-      display: none; // Hide the caret on small screens
-    }
-  }
 }

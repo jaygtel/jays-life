@@ -35,7 +35,7 @@
   align-items: center;
   background-color: $primary-color;
   color: #fff;
-  height: 300px;
+  height: 350px; // Increased height
   text-align: center;
 }
 
@@ -92,7 +92,6 @@
 .nav-links a:hover {
   color: $primary-color; // Change text color on hover to the site's highlight theme color
 }
-
 
 .content {
   flex: 1;

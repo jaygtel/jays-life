@@ -24,14 +24,12 @@
     margin: 0;
     padding: 0;
     display: flex;
-    flex: 1; // Allow the nav-links to take up remaining space
-    justify-content: space-between; // Space items evenly
+    justify-content: space-evenly; // Distribute items evenly
     align-items: center;
+    width: 100%; // Take up the remaining space
     gap: 1rem;
 
     li {
-      flex: 1; // Ensure each item takes up equal space
-      max-width: 150px; // Set a specific size for each navigation item
       text-align: center; // Center text within each navigation item
     }
 
